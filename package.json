@@ -1,0 +1,30 @@
+{
+  "name": "exetermarketplace",
+  "version": "1.0.0",
+  "description": "An online platform for students to buy and sell items at Phillips Exeter Academy.",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charizardavi/ExeterMarketPlace.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charizardavi/ExeterMarketPlace/issues"
+  },
+  "homepage": "https://github.com/charizardavi/ExeterMarketPlace#readme",
+  "dependencies": {
+    "firebase": "^9.21.0"
+  },
+  "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.21.4",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.4"
+  },
+  "exports": {
+    ".": "./index.js"
+  }
+}
