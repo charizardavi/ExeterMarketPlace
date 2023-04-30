@@ -1,0 +1,7 @@
+{
+  "name": "ExeterMarketPlace",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
