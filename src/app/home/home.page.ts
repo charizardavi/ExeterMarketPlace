@@ -6,7 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  buttonText: string = "normal";
+  constructor() {
 
-  constructor() {}
+  }
+  hello(){
+    if (this.buttonText == "normal"){
+      this.buttonText = "notNormal";
+    }
+    else{
+      this.buttonText = "normal";
+    }
+  }
+
+  handleInput(event: any){
+    this.buttonText = event.target.value.toLowerCase();
+  }
+  
 
 }

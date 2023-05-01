@@ -9,7 +9,7 @@
       </ion-title>
       <div class="toolbar-container">
         <div class="searchbar-container">
-          <ion-searchbar placeholder="Placeholder"></ion-searchbar>
+          <ion-searchbar (ionInput)="handleInput($event)" placeholder="Search Here"></ion-searchbar>
         </div>
       </div>
     </ion-toolbar>
@@ -21,4 +21,8 @@
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
+  <ion-button (click)="hello()" >
+    {{buttonText}}
+  </ion-button>
+
 </ion-content>
