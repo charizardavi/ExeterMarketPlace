@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -9,7 +9,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class HomePage {
   buttonText: string = "normal";
-  constructor(firestore: AngularFirestore) {
+  firestore: AngularFirestore = inject(AngularFirestore);
+  constructor() {
     
   }
   hello(){
