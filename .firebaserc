@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "exetermarketplace": {
+      "hosting": {
+        "app": [
+          "exetermarketplace"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "exetermarketplace"
+  }
+}

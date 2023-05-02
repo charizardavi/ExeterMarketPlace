@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +9,8 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   buttonText: string = "normal";
-  constructor() {
-
+  constructor(firestore: AngularFirestore) {
+    
   }
   hello(){
     if (this.buttonText == "normal"){
