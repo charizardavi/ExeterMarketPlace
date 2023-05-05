@@ -18,12 +18,16 @@ export class HomePage {
       icon: "bed"
     },
     {
-      name: "dorm",
-      icon: "bed"
+      name: "education",
+      icon: "book-sharp"
     },
     {
-      name: "dorm",
-      icon: "bed"
+      name: "sports",
+      icon: "american-football-sharp"
+    },
+    {
+      name: "games",
+      icon: "game-controller-sharp"
     }
   ];
   profile: userProfile = {
@@ -32,6 +36,10 @@ export class HomePage {
   };
 
   filters: filter[] = [
+    {
+      name: "price range",
+      slider: true
+    },
     {
       name: "hello there",
       slider: true
