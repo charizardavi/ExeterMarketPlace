@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { sideBarItem } from '../sidebarItem';
+import { userProfile } from '../userProfile';
+import { filter } from '../filter';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +12,32 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class HomePage {
   buttonText: string = "normal";
+  items: sideBarItem[] = [
+    {
+      name: "dorm",
+      icon: "bed"
+    },
+    {
+      name: "dorm",
+      icon: "bed"
+    },
+    {
+      name: "dorm",
+      icon: "bed"
+    }
+  ];
+  profile: userProfile = {
+    name: "Avaninder",
+    cartCount: 10
+  };
+
+  filters: filter[] = [
+    {
+      name: "hello there",
+      slider: true
+    }
+  ]
+
   firestore: AngularFirestore = inject(AngularFirestore);
   constructor() {
     
@@ -25,6 +54,17 @@ export class HomePage {
   handleInput(event: any){
     this.buttonText = event.target.value.toLowerCase();
   }
-  
+  pinFormatter(value: number) {
+    value = value*10;
+    return `$${value}`;
+  }
+  public expanded = false;
+  public header = 'My Card Header';
+  public description = 'My Card Description';
+  public imageSrc = 'assets/images/earbuds.jpg';
+
+  public toggleCard(): void {
+    this.expanded = !this.expanded;
+  }
 
 }

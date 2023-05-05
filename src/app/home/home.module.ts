@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { NavComponent } from '../nav/nav.component';
 
 
 @NgModule({
@@ -18,6 +19,6 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, NavComponent]
 })
 export class HomePageModule {}

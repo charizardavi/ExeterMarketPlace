@@ -1,14 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.scss'],
 })
-export class AppComponent {
+export class NavComponent implements OnInit {
   buttonText: string = "normal";
-  constructor() {}
+  constructor() { }
+
+  ngOnInit() {}
+
   hello(){
     if (this.buttonText == "normal"){
       this.buttonText = "notNormal";
@@ -21,4 +24,5 @@ export class AppComponent {
   handleInput(event: any){
     this.buttonText = event.target.value.toLowerCase();
   }
+
 }
