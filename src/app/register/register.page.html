@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+  </ion-header>
+
+  <div>
+    <!-- the top area, where general quick access menu items are accessed -->
+    <!-- button (click)="cardClick()" add this for button functionality on card, maybe other elements -->
+
+    <ion-text color="secondary" class="ion-text-center">
+      <h1>Register</h1>
+    </ion-text>
+
+    <form>
+      <!-- <ion-card id="top-area-card">
+        <ion-card-content class="ion-text-center"> -->
+          <ion-item lines="full">
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input [(ngModel)]="firstNameValue" name="firstName" type="text"></ion-input>
+          </ion-item>
+        <!-- </ion-card-content>
+      </ion-card> -->
+<!-- 
+      <ion-card id="top-area-card">
+        <ion-card-content class="ion-text-center"> -->
+          <ion-item lines="full">
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input [(ngModel)]="lastNameValue" name="firstName" type="text"></ion-input>
+          </ion-item>
+        <!-- </ion-card-content>
+      </ion-card> -->
+
+      <!-- <ion-card id="top-area-card">
+        <ion-card-content class="ion-text-center"> -->
+          <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="emailValue" name="firstName" type="text"></ion-input>
+          </ion-item>
+        <!-- </ion-card-content>
+      </ion-card> -->
+
+      <!-- <ion-card id="top-area-card">
+        <ion-card-content class="ion-text-center"> -->
+          <ion-item lines="full" class="last-form">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input [(ngModel)]="passwordValue" name="firstName" type="text"></ion-input>
+          </ion-item>
+        <!-- </ion-card-content>
+      </ion-card> -->
+
+
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="createFunction()" type="submit" color="light" expand="block">submit</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+
+  </div>
+
+</ion-content>
