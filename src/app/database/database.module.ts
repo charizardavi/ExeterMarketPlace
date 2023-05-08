@@ -17,8 +17,6 @@ import { AngularFireModule } from '@angular/fire/compat';
     FormsModule,
     IonicModule,
     DatabasePageRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireModule
   ],
   declarations: [DatabasePage]
 })
