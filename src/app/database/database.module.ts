@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegisterPageRoutingModule } from './register-routing.module';
+import { DatabasePageRoutingModule } from './database-routing.module';
 
-import { RegisterPage } from './register.page';
+import { DatabasePage } from './database.page';
 import { environment } from 'src/environments/environment';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
@@ -15,8 +16,10 @@ import { AngularFireModule } from '@angular/fire/compat';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegisterPageRoutingModule
+    DatabasePageRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule
   ],
-  declarations: [RegisterPage]
+  declarations: [DatabasePage]
 })
-export class RegisterPageModule {}
+export class DatabasePageModule {}

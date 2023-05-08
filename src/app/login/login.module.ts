@@ -14,8 +14,6 @@ import { environment } from 'src/environments/environment';
     CommonModule,
     FormsModule,
     IonicModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireModule,
     LoginPageRoutingModule
   ],
   declarations: [LoginPage]
