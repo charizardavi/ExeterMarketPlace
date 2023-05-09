@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NavController } from '@ionic/angular';
+import { sendEmailVerification, getAuth, User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +36,7 @@ export class RegisterPage implements OnInit {
             this.auth.signInWithEmailAndPassword(this.emailValue, this.passwordValue)
             console.log((await this.auth.currentUser)?.uid)
             const properUID = (await this.auth.currentUser)?.uid;
+            await sendEmailVerification(getAuth().currentUser as unknown as User);
             this.nav.navigateForward('/login');
           }
         )
