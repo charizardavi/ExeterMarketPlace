@@ -9,7 +9,6 @@ import { Preferences } from '@capacitor/preferences';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  auth: AngularFireAuth = inject(AngularFireAuth);
   emailValue: string = "";
   passwordValue: string = "";
 
@@ -20,7 +19,7 @@ export class LoginPage implements OnInit {
 
   loginError: boolean = false;
 
-  constructor(public nav: NavController) {
+  constructor(public nav: NavController, public auth: AngularFireAuth) {
   }
 
   async ngOnInit() {

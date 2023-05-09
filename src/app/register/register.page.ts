@@ -18,10 +18,10 @@ export class RegisterPage implements OnInit {
 
   public passwordValue: string = "";
   
-  auth: AngularFireAuth = inject(AngularFireAuth);
+  
 
 
-  constructor(public nav: NavController) {
+  constructor(public nav: NavController, public auth: AngularFireAuth) {
   }
 
   ngOnInit() {
