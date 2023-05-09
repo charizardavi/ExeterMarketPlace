@@ -1,7 +1,9 @@
+import { userProfile } from "./userProfile"
+
 export interface item{
-    name: string,
+    user: userProfile,
     price: number,
-    uid: string,
     description: string,
+    image?: string
 }
 

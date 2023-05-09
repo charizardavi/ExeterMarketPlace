@@ -1,4 +1,7 @@
+import { item } from "./item";
+
 export interface userProfile{
     name: string,
-    cartCount: number
+    cart: item[],
+    uid: string
 }

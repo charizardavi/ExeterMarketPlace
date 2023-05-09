@@ -5,13 +5,14 @@ describe('DatabasePage', () => {
   let component: DatabasePage;
   let fixture: ComponentFixture<DatabasePage>;
 
-  beforeEach(async(() => {
+  beforeEach(async() => {
     fixture = TestBed.createComponent(DatabasePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
+

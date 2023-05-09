@@ -13,8 +13,8 @@ export class RegisterPage implements OnInit {
   public firstNameValue: string = "";
 
   public lastNameValue: string = "";
-
-  public emailValue: string = "";
+ 
+  public emailValue: string = ""; 
 
   public passwordValue: string = "";
   

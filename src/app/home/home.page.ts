@@ -32,7 +32,8 @@ export class HomePage {
   ];
   profile: userProfile = {
     name: "Avaninder",
-    cartCount: 10
+    uid: "",
+    cart: []
   };
 
   filters: filter[] = [
