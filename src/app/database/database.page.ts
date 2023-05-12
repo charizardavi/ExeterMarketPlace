@@ -15,6 +15,7 @@ export class DatabasePage implements OnInit {
     cart: [],
     uid: ""
   }
+  
   myItem: item = {
     user: this.myUser,
     price: 10,

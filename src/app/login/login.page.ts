@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NavController } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
+import { userProfile } from '../userProfile';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,11 @@ import { Preferences } from '@capacitor/preferences';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  myUser: userProfile = {
+    name: "",
+    cart: [],
+    uid: ""
+  }
   emailValue: string = "";
   passwordValue: string = "";
 
