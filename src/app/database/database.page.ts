@@ -18,9 +18,10 @@ export class DatabasePage implements OnInit {
   
   myItem: item = {
     user: this.myUser,
-    price: 10,
-    description: "textbook",
+    price: 1,
+    description: "a lollipop"
   };
+
   constructor(public firestore: AngularFirestore, public auth: AngularFireAuth) { 
     
   }
@@ -29,20 +30,22 @@ export class DatabasePage implements OnInit {
 
   async ngOnInit() {
     console.log(this.firestore.collection("items"));
-    // this.firestore.collection("items").add(
-    //   this.myItem
-    // )
-    const mySearch = "textbook";
-    let counter = 0;
-    this.firestore.collection("items", ref => ref.where('description', '==', mySearch)).get().subscribe(
-      data => data.forEach(
-        dataPiece => {
-          console.log((dataPiece.data() as unknown as item).description);
-          counter = counter + 1;
-          console.log(counter);
-        }
-      )
+    this.firestore.collection("items").add(
+      this.myItem
     )
+
+
+    // const mySearch = "textbook";
+    // let counter = 0;
+    // this.firestore.collection("items", ref => ref.where('description', '==', mySearch)).get().subscribe(
+    //   data => data.forEach(
+    //     dataPiece => {
+    //       console.log((dataPiece.data() as unknown as item).description);
+    //       counter = counter + 1;
+    //       console.log(counter);
+    //     }
+    //   )
+    // )
   }
 
 }

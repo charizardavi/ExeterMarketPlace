@@ -2,14 +2,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!DOCTYPE html>
-  <html>
-
-  <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-  </head>
-
   <body>
     <header>
       <nav class="tnav">
@@ -175,9 +167,9 @@
 
 
                         <div class="dztp">
-                          <a href="" target="_blank">
+                          <!-- <a href="" target="_blank">
                             <img width="100%" height="120" src="../image/info/2.png"
-                              style="background:url(../image/info/2.jpg) no-repeat center 0;"></a>
+                              style="background:url(../image/info/2.jpg) no-repeat center 0;"></a> -->
                         </div>
 
 
@@ -293,7 +285,7 @@
               <div style="    padding: 20px 0 10px!important;width: 460px;height: 620px">
                 <div class="zt"
                   style="    min-height: 21px;  _height: 21px; font-size: 16px; font-weight: 700; line-height: 21px; color: #3C3C3C;">
-                  <h4>&nbsp;&nbsp;Kiehl's Beauty Products</h4>
+                  <h4>&nbsp;&nbsp;{{data.description}}</h4>
                 </div>
                 <a href="">
                   <div class="shoucang" style="display: block;float: left;margin-top: 20px">
@@ -323,7 +315,7 @@
                         <div id="J_PromoHd" class="tb-promo-hd tb-promo-item">
                           <div class="tb-promo-item-bd">
                             <strong class="tb-promo-price"><em class="tb-rmb">$</em>
-                              <em id="J_PromoPriceNum" class="tb-rmb-num">28.00</em></strong>
+                              <em id="J_PromoPriceNum" class="tb-rmb-num">{{data.price}}.00</em></strong>
                             <span id="J_PromoType" class="tb-promo-type">PROMO!</span>
                             <span id="J_PromoTips" class="tb-promo-tips"></span>
                           </div>
@@ -673,6 +665,5 @@
     </div>
   </body>
 
-  </html>
 
 </ion-content>

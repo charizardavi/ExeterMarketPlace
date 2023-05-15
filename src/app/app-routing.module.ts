@@ -22,7 +22,8 @@ const routes: Routes = [
   {
     path: 'database',
     loadChildren: () => import('./database/database.module').then( m => m.DatabasePageModule)
-  },  {
+  },
+  {
     path: 'item',
     loadChildren: () => import('./item/item.module').then( m => m.ItemPageModule)
   },

@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { sideBarItem } from '../sidebarItem';
 import { userProfile } from '../userProfile';
 import { filter } from '../filter';
+import { item } from '../item';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -47,10 +50,21 @@ export class HomePage {
     }
   ]
 
+  listings: item[] = [];
+
   firestore: AngularFirestore = inject(AngularFirestore);
-  constructor() {
-    
+  constructor(public nav: NavController) {}
+
+  ngOnInit(){
+    this.firestore.collection("items").get().subscribe(
+      data => data.forEach(
+        dataPiece => {
+          this.listings.push(dataPiece.data() as unknown as item);
+        }
+      )
+    )
   }
+
   hello(){
     if (this.buttonText == "normal"){
       this.buttonText = "notNormal";
@@ -74,6 +88,10 @@ export class HomePage {
 
   public toggleCard(): void {
     this.expanded = !this.expanded;
+  }
+
+  goToItem(passItem: item){
+    this.nav.navigateForward("/item", {state: passItem})
   }
 
 }
