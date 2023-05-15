@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { item } from '../item';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -6,21 +9,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
-  // Listitem: item = {
-  //   user: this.Listitem,
-  //   price: 10,
-  //   description: "textbook",
-  // };
-  emailValue: string = "";
-  loginError: boolean = false;
+  pushItem!: item;
+  itemName: string = '';
+  submitError: boolean = false;
+  itemDesc: string = '';
+  itemPrice: number = 0;
 
+  constructor(public firestore: AngularFirestore, public nav: NavController) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() {}
+  submitFuction() {
+    if (this.itemName != "" && this.itemDesc != "" && this.itemPrice >= 0 && this.itemPrice <= 2023 ){
+      this.pushItem = {
+        name: this.itemName,
+        description: this.itemDesc,
+        price: this.itemPrice,
+        user: {
+          name: "John Doe",
+          uid: "",
+          cart: []
+        }
+      }
+      console.log("success");
+      this.firestore.collection("items").add(
+        this.pushItem
+      ).then(()=>{
+        this.nav.navigateForward("/home");
+      })
+    }
   }
-  loginFunction(){
-
-  }
-
 }

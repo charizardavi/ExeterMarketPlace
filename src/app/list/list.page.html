@@ -4,26 +4,36 @@
 <ion-content>
 
   <ion-text color="secondary" class="ion-text-center login-logo">
-    <h1>Login</h1>
+    <h1>Sell an Item</h1>
   </ion-text>
 
   <form>
 
     <ion-item lines="full" class="email-form">
-      <ion-label position="floating"></ion-label>
-      <ion-input [(ngModel)]="emailValue" name="firstName" type="text"></ion-input>
+      <ion-label position="floating">Item Name</ion-label>
+      <ion-input [(ngModel)]="itemName" name="itemName" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full" class="email-form">
+      <ion-label position="floating">Item Description (mention pickup location)</ion-label>
+      <ion-input [(ngModel)]="itemDesc" name="itemDesc" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full" class="email-form">
+      <ion-label position="floating">Item Price</ion-label>
+      <ion-input [(ngModel)]="itemPrice" name="itemPrice" type="number"></ion-input>
     </ion-item>
 
     
 
     <ion-row class="submit-button">
       <ion-col>
-        <ion-button (click)="loginFunction()" type="upload item" color="light" expand="block">submit</ion-button>
+        <ion-button (click)="submitFuction()" type="upload item" color="light" expand="block">submit</ion-button>
       </ion-col>
     </ion-row>
   </form>
 
-  <ion-text color="danger" class="ion-text-center login-logo" *ngIf="loginError">
-    <p>The email or password are incorrect</p>
+  <ion-text color="danger" class="ion-text-center login-logo" *ngIf="submitError">
+    <p>The price is not between $0 and $2023</p>
   </ion-text>
 </ion-content>
