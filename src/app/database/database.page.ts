@@ -29,10 +29,12 @@ export class DatabasePage implements OnInit {
 
 
   async ngOnInit() {
-    console.log(this.firestore.collection("items"));
-    this.firestore.collection("items").add(
-      this.myItem
-    )
+    // console.log(this.firestore.collection("items"));
+    // this.firestore.collection("items").add(
+    //   this.myItem
+    // )
+
+
 
 
     // const mySearch = "textbook";
@@ -48,4 +50,8 @@ export class DatabasePage implements OnInit {
     // )
   }
 
+
+  addToCart(){
+    console.log("hi");
+  }
 }

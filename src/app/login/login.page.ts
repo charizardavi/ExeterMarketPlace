@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   async ngOnInit() {
     const ret = await Preferences.get({ key: 'credentials' });
     const user = JSON.parse(ret.value!);
-    if (user != null){
+    if (user != null && user.auto){
       console.log("nonull");
       this.auth.signInWithEmailAndPassword(user.username, user.password).then(
         async () => {
@@ -53,15 +53,30 @@ export class LoginPage implements OnInit {
               value: JSON.stringify(
                 {
                   username: this.emailValue,
-                  password: this.passwordValue
+                  password: this.passwordValue,
+                  auto: true
+                }
+              )
+            }
+          );
+        }
+        else{
+          await Preferences.set(
+            {
+              key: 'credentials',
+              value: JSON.stringify(
+                {
+                  username: this.emailValue,
+                  password: this.passwordValue,
+                  auto: false
                 }
               )
             }
           )
         }
-        else {
-          Preferences.remove({key:'credentials'});
-        }
+        // else {
+        //   Preferences.remove({key:'credentials'});
+        // }
         const uid = (await this.auth.currentUser)?.uid;
           this.nav.navigateForward("/home");
       }

@@ -15,6 +15,9 @@ import { NavController } from '@ionic/angular';
 })
 export class HomePage {
   buttonText: string = "normal";
+
+
+
   items: sideBarItem[] = [
     {
       name: "dorm",
@@ -52,9 +55,13 @@ export class HomePage {
 
   listings: item[] = [];
 
-  constructor(public nav: NavController, public firestore: AngularFirestore) {}
+  constructor(public nav: NavController, public firestore: AngularFirestore, public auth: AngularFireAuth) {}
 
-  ngOnInit(){
+  async ngOnInit(){
+    if ((await this.auth.currentUser)?.uid == undefined){
+      this.nav.navigateRoot("/login");
+    }
+    
     this.firestore.collection("items").get().subscribe(
       data => data.forEach(
         dataPiece => {
@@ -62,6 +69,7 @@ export class HomePage {
         }
       )
     );
+
     
     
   }
