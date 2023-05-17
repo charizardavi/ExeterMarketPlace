@@ -52,8 +52,7 @@ export class HomePage {
 
   listings: item[] = [];
 
-  firestore: AngularFirestore = inject(AngularFirestore);
-  constructor(public nav: NavController) {}
+  constructor(public nav: NavController, public firestore: AngularFirestore) {}
 
   ngOnInit(){
     this.firestore.collection("items").get().subscribe(
@@ -62,7 +61,9 @@ export class HomePage {
           this.listings.push(dataPiece.data() as unknown as item);
         }
       )
-    )
+    );
+    
+    
   }
 
   hello(){
@@ -72,6 +73,10 @@ export class HomePage {
     else{
       this.buttonText = "normal";
     }
+  }
+
+  goToListPage(){
+    this.nav.navigateForward("/list");
   }
 
   handleInput(event: any){

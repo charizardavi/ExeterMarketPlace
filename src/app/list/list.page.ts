@@ -38,4 +38,8 @@ export class ListPage implements OnInit {
       })
     }
   }
+
+  goToHome(){
+    this.nav.navigateForward("/home");
+  }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NavController } from '@ionic/angular';
 import { sendEmailVerification, getAuth, User } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { userProfile } from '../userProfile';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +19,17 @@ export class RegisterPage implements OnInit {
   public emailValue: string = ""; 
 
   public passwordValue: string = "";
+
+  newUser: userProfile = {
+    uid:"",
+    cart:[],
+    name:""
+  }
   
   
 
 
-  constructor(public nav: NavController, public auth: AngularFireAuth) {
+  constructor(public nav: NavController, public auth: AngularFireAuth, public firestore: AngularFirestore) {
   }
 
   ngOnInit() {
@@ -37,6 +45,16 @@ export class RegisterPage implements OnInit {
             console.log((await this.auth.currentUser)?.uid)
             const properUID = (await this.auth.currentUser)?.uid;
             await sendEmailVerification(getAuth().currentUser as unknown as User);
+            const uidInput = (await this.auth.currentUser)?.uid;
+
+            this.newUser = {
+              uid: uidInput!,
+              name: this.firstNameValue+" "+this.lastNameValue,
+              cart: []
+            };
+
+            await this.firestore.collection("users").add(this.newUser);
+  
             this.nav.navigateForward('/login');
           }
         )
