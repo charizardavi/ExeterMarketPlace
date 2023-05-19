@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { item } from '../item';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { userProfile } from '../userProfile';
 
 @Component({
   selector: 'app-item',
@@ -37,10 +38,23 @@ export class ItemPage implements OnInit {
     this.buttonText = event.target.value.toLowerCase();
   }
 
-  addToCart(){
+  async addToCart(){
     // this.firestore.collection("items").add();
     // console.log(this.firestore.collection("items").get());
-    
+    console.log("click");
+    let pushUser: userProfile;
+
+    const uid = (await this.auth.currentUser)?.uid;
+    console.log(uid);
+    this.firestore.collection("users", ref => ref.where('uid', '==', uid)).get().subscribe(
+      data => data.forEach(
+        dataPiece => {
+          let user:userProfile = dataPiece.data() as unknown as userProfile;
+          user.cart.push(this.data);
+          this.firestore.collection("users").doc(dataPiece.id).set(user);
+        }
+      )
+    )
   }
 
 }
