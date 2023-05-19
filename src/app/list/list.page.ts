@@ -18,6 +18,7 @@ export class ListPage implements OnInit {
   itemDesc: string = '';
   itemPrice: number = 0;
   uid: string = '';
+  image: string = '';
   pushUser!: userProfile;
 
   constructor(
@@ -56,6 +57,7 @@ export class ListPage implements OnInit {
               description: this.itemDesc,
               price: this.itemPrice,
               user: this.pushUser,
+              image: this.image
             };
             this.firestore
               .collection('items')
