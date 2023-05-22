@@ -4,7 +4,6 @@ import { item } from '../item';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { userProfile } from '../userProfile';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-item',
@@ -12,61 +11,50 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./item.page.scss'],
 })
 export class ItemPage implements OnInit {
-  buttonText: string = 'normal';
+  buttonText: string = "normal";
 
   public data!: item;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    public firestore: AngularFirestore,
-    public auth: AngularFireAuth,
-    public nav: NavController
-  ) {
-    this.route.queryParams.subscribe((params) => {
+ 
+  constructor(private route: ActivatedRoute, private router: Router, public firestore: AngularFirestore, public auth: AngularFireAuth) {
+    this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation()?.extras.state) {
-        this.data = this.router.getCurrentNavigation()?.extras
-          ?.state as unknown as item;
+        this.data = this.router.getCurrentNavigation()?.extras?.state as unknown as item;
       }
     });
   }
 
-  ngOnInit() {}
-  hello() {
-    if (this.buttonText == 'normal') {
-      this.buttonText = 'notNormal';
-    } else {
-      this.buttonText = 'normal';
+  ngOnInit() {
+  }
+  hello(){
+    if (this.buttonText == "normal"){
+      this.buttonText = "notNormal";
+    }
+    else{
+      this.buttonText = "normal";
     }
   }
 
-  handleInput(event: any) {
+  handleInput(event: any){
     this.buttonText = event.target.value.toLowerCase();
   }
 
-  async addToCart() {
+  async addToCart(){
     // this.firestore.collection("items").add();
     // console.log(this.firestore.collection("items").get());
-    console.log('click');
+    console.log("click");
     let pushUser: userProfile;
 
     const uid = (await this.auth.currentUser)?.uid;
     console.log(uid);
-    this.firestore
-      .collection('users', (ref) => ref.where('uid', '==', uid))
-      .get()
-      .subscribe((data) =>
-        data.forEach((dataPiece) => {
-          let user: userProfile = dataPiece.data() as unknown as userProfile;
+    this.firestore.collection("users", ref => ref.where('uid', '==', uid)).get().subscribe(
+      data => data.forEach(
+        dataPiece => {
+          let user:userProfile = dataPiece.data() as unknown as userProfile;
           user.cart.push(this.data);
-          this.firestore
-            .collection('users')
-            .doc(dataPiece.id)
-            .set(user)
-            .then(() => {
-              this.nav.navigateRoot('/home');
-            });
-        })
-      );
+          this.firestore.collection("users").doc(dataPiece.id).set(user);
+        }
+      )
+    )
   }
+
 }
