@@ -89,4 +89,7 @@ export class CartPage implements OnInit {
       );
     }
   }
+  homeNav(){
+    this.nav.navigateBack("/home");
+  }
 }

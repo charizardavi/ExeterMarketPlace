@@ -88,4 +88,8 @@ export class ItemPage implements OnInit {
     Preferences.remove({key:'credentials'});
     this.nav.navigateForward('/login');
   }
+
+  homeNav(){
+    this.nav.navigateBack("/home");
+  }
 }
