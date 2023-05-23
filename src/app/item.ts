@@ -5,6 +5,7 @@ export interface item{
     user: userProfile,
     price: number,
     description: string,
-    image?: string
+    image?: string,
+    pickup?: string
 }
 

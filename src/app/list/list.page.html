@@ -15,7 +15,7 @@
     </ion-item>
 
     <ion-item lines="full" class="email-form">
-      <ion-label position="floating">Item Description (mention pickup location)</ion-label>
+      <ion-label position="floating">Item Description</ion-label>
       <ion-input [(ngModel)]="itemDesc" name="itemDesc" type="text"></ion-input>
     </ion-item>
 
@@ -24,18 +24,31 @@
       <ion-input [(ngModel)]="itemPrice" name="itemPrice" type="number"></ion-input>
     </ion-item>
 
+    <ion-item lines="full" class="email-form">
+      <ion-label position="floating">Pickup Location</ion-label>
+      <ion-input [(ngModel)]="pickup_location" name="itemPickup" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Picture of Item</ion-label>
+      <ion-input type="file" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)"></ion-input>
+    </ion-item>
+
+
+
+
     
 
     <ion-row class="submit-button">
       <ion-col>
-        <ion-button (click)="submitFuction()" type="upload item" color="light" expand="block">submit</ion-button>
+        <ion-button (click)="submitFuction()" type="upload item"  expand="block">submit</ion-button>
       </ion-col>
     </ion-row>
   </form>
 
-  <ion-text color="danger" class="ion-text-center login-logo" *ngIf="submitError">
+  <ion-text color="danger" class="ion-text-center login-logo"  *ngIf="submitError">
     <p>The price is not between $0 and $2023</p>
   </ion-text>
 
-  <ion-button (click)="goToHome()">Back to Home</ion-button>
+  <ion-button (click)="goToHome()" color="light">Back to Home</ion-button>
 </ion-content>

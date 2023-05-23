@@ -1,6 +1,18 @@
 <ion-header [translucent]="true">
   <ion-header>
-    <app-nav></app-nav>
+    <ion-toolbar class="navbar" color="primary">
+      <ion-img style="padding-left: 200px !important;" src="assets/images/nav_logo.png" style="height: 5vh !important;"
+        slot="start"></ion-img>
+      <div>
+        <ion-searchbar (ionInput)="handleInput($event)" placeholder="Search Here"
+          style="width: 50%; padding-left: 10%;"></ion-searchbar>
+      </div>
+      <ion-button slot="end" shape="round" color="light" (click)="cart()">
+        <ion-icon slot="icon-only" name="cart" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" shape="round" color="light" href="/list">List an Item</ion-button>
+      <ion-button slot="end" shape="round" color="light" (click)="logOut()">Log Out</ion-button>
+    </ion-toolbar>
   </ion-header>
 </ion-header>
 
@@ -34,11 +46,11 @@
   </ion-card> -->
   <ion-card *ngFor="let item of listings" style="width:10%; position:relative; float: right;" (click)="goToItem(item)">
     <ion-card-header>
-      <ion-card-title>{{item.description}}</ion-card-title>
+      <ion-card-title>{{item.name}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       ${{item.price}}.00
     </ion-card-content>
   </ion-card>
-  
+
 </ion-content>

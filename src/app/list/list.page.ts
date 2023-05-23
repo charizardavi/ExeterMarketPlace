@@ -12,6 +12,7 @@ import { Preferences } from '@capacitor/preferences';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+  imageBase64: string = "";
   pushItem!: item;
   itemName: string = '';
   submitError: boolean = false;
@@ -19,6 +20,8 @@ export class ListPage implements OnInit {
   itemPrice: number = 0;
   uid: string = '';
   pushUser!: userProfile;
+  pickup_location: string = "";
+
 
   constructor(
     public firestore: AngularFirestore,
@@ -41,7 +44,9 @@ export class ListPage implements OnInit {
       this.itemName != '' &&
       this.itemDesc != '' &&
       this.itemPrice >= 0 &&
-      this.itemPrice <= 2023
+      this.itemPrice <= 2023 &&
+      this.pickup_location != '' &&
+      this.imageBase64 != ""
     ) {
       const currentUser = await this.auth.currentUser;
       this.uid = currentUser!.uid;
@@ -56,6 +61,8 @@ export class ListPage implements OnInit {
               description: this.itemDesc,
               price: this.itemPrice,
               user: this.pushUser,
+              image: this.imageBase64,
+              pickup: this.pickup_location
             };
             this.firestore
               .collection('items')
@@ -70,5 +77,24 @@ export class ListPage implements OnInit {
 
   goToHome() {
     this.nav.navigateForward('/home');
+  }
+
+  
+
+  onFileChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const fileList = inputElement.files;
+
+    if (fileList && fileList.length > 0) {
+      const file = fileList[0];
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        this.imageBase64 = reader.result as string;
+        console.log(this.imageBase64);
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 }

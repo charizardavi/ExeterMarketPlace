@@ -7,6 +7,7 @@ import { filter } from '../filter';
 import { item } from '../item';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-home',
@@ -14,84 +15,98 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  buttonText: string = "normal";
-
-
+  buttonText: string = 'normal';
+  userCart: item[] = [];
 
   items: sideBarItem[] = [
     {
-      name: "dorm",
-      icon: "bed"
+      name: 'dorm',
+      icon: 'bed',
     },
     {
-      name: "education",
-      icon: "book-sharp"
+      name: 'education',
+      icon: 'book-sharp',
     },
     {
-      name: "sports",
-      icon: "american-football-sharp"
+      name: 'sports',
+      icon: 'american-football-sharp',
     },
     {
-      name: "games",
-      icon: "game-controller-sharp"
-    }
+      name: 'games',
+      icon: 'game-controller-sharp',
+    },
   ];
   profile: userProfile = {
-    name: "Avaninder",
-    uid: "",
-    cart: []
+    name: 'Avaninder',
+    uid: '',
+    cart: [],
   };
 
   filters: filter[] = [
     {
-      name: "price range",
-      slider: true
+      name: 'price range',
+      slider: true,
     },
     {
-      name: "hello there",
-      slider: true
-    }
-  ]
+      name: 'hello there',
+      slider: true,
+    },
+  ];
 
   listings: item[] = [];
 
-  constructor(public nav: NavController, public firestore: AngularFirestore, public auth: AngularFireAuth) {}
+  constructor(
+    public nav: NavController,
+    public firestore: AngularFirestore,
+    public auth: AngularFireAuth
+  ) {}
 
-  async ngOnInit(){
-    if ((await this.auth.currentUser)?.uid == undefined){
-      this.nav.navigateRoot("/login");
+  async ngOnInit() {
+    const uid = (await this.auth.currentUser)?.uid!;
+    if ((await this.auth.currentUser)?.uid == undefined) {
+      this.nav.navigateRoot('/login');
     }
-    
-    this.firestore.collection("items").get().subscribe(
-      data => data.forEach(
-        dataPiece => {
-          this.listings.push(dataPiece.data() as unknown as item);
-        }
-      )
-    );
 
-    
-    
+    this.firestore
+      .collection('users', (ref) => ref.where('uid', '==', uid))
+      .get()
+      .subscribe((data) =>
+        data.forEach((dataPiece) => {
+          this.userCart = (dataPiece.data() as unknown as userProfile).cart;
+        })
+      );
+
+    this.firestore
+      .collection('items')
+      .get()
+      .subscribe((data) =>
+        data.forEach((dataPiece) => {
+          if (
+            this.userCart.indexOf(dataPiece.data() as unknown as item) == -1
+          ) {
+            this.listings.push(dataPiece.data() as unknown as item);
+          }
+        })
+      );
   }
 
-  hello(){
-    if (this.buttonText == "normal"){
-      this.buttonText = "notNormal";
-    }
-    else{
-      this.buttonText = "normal";
+  hello() {
+    if (this.buttonText == 'normal') {
+      this.buttonText = 'notNormal';
+    } else {
+      this.buttonText = 'normal';
     }
   }
 
-  goToListPage(){
-    this.nav.navigateForward("/list");
+  goToListPage() {
+    this.nav.navigateForward('/list');
   }
 
-  handleInput(event: any){
+  handleInput(event: any) {
     this.buttonText = event.target.value.toLowerCase();
   }
   pinFormatter(value: number) {
-    value = value*10;
+    value = value * 10;
     return `$${value}`;
   }
   public expanded = false;
@@ -103,8 +118,17 @@ export class HomePage {
     this.expanded = !this.expanded;
   }
 
-  goToItem(passItem: item){
-    this.nav.navigateForward("/item", {state: passItem})
+  goToItem(passItem: item) {
+    this.nav.navigateForward('/item', { state: passItem });
   }
 
+  logOut() {
+    this.auth.signOut();
+    Preferences.remove({ key: 'credentials' });
+    this.nav.navigateForward('/login');
+  }
+
+  cart() {
+    this.nav.navigateForward('/cart');
+  }
 }

@@ -2,58 +2,52 @@
 </ion-header>
 
 <ion-content>
+  <div class="taobaoBox">
+    <!--header-->
+   
 
-  <ion-text color="secondary" class="ion-text-center login-logo">
-    <h1>Login</h1>
-  </ion-text>
+    <!--ad-->
+    <div class="ad">
+      <div class="box">
+        <div class="container">
+          <div class="tips1">
+            Login with Password
+          </div>
+          <div class="form">
+            <div class="userbox">
+              <label for="username"></label>
+              <input [(ngModel)]="emailValue" name="email" type="email" id="username" placeholder="Exeter Email" />
+              <!--<span class="delete">x</span>-->
+              <!--  <span class="usertips" id="username">会员名/邮箱/手机号</span> -->
+            </div>
 
-  <form>
-    <!-- <ion-card id="top-area-card">
-      <ion-card-content class="ion-text-center"> -->
-        <ion-item lines="full" class="email-form">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input [(ngModel)]="emailValue" name="firstName" type="text"></ion-input>
-        </ion-item>
-      <!-- </ion-card-content>
-    </ion-card> -->
+            <div class="passwdbox">
+              <label></label>
+              <input [(ngModel)]="passwordValue" name="password" type="password" id="passwd" placeholder="Password" />
+            </div>
 
-    <!-- <ion-card id="top-area-card">
-      <ion-card-content class="ion-text-center"> -->
-        <ion-item lines="full" class="password-form">
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="passwordValue" name="firstName" type="text"></ion-input>
-        </ion-item>
-      <!-- </ion-card-content>
-    </ion-card> -->
 
-    <!-- <ion-card id="top-area-card">
-      <ion-card-content class="ion-text-center"> -->
-        <ion-row class="login-info-save">
-          <ion-col>
-            <ion-item>
-              <ion-checkbox [(ngModel)]="saveLoginInfo" [ngModelOptions]="{standalone: true}" slot="start" (ionChange)="saveLoginChange($event)"></ion-checkbox>
-              <ion-label class="ion-text-wrap">Save my login information</ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      <!-- </ion-card-content>
-    </ion-card> -->
+            <div class="submitbox">
+              <button type="submit" name="submit" (click)="loginFunction()">Login</button>
+            </div>
 
-    <ion-row>
-      <ion-col>
-        <ion-button (click)="goToRegister()" fill="clear" type="submit" expand="block">Don't have an account? Register
-          here</ion-button>
-      </ion-col>
-    </ion-row>
+            <div class="loginbox">
 
-    <ion-row class="submit-button">
-      <ion-col>
-        <ion-button (click)="loginFunction()" type="submit" color="light" expand="block">submit</ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
+              <a href="#" class="sina"><img src="">&nbsp;Login w/ Email</a>
+              <a href="#" class="alipay"><img src="">&nbsp;Login w/ Phone</a>
 
-  <ion-text color="danger" class="ion-text-center login-logo" *ngIf="loginError">
-    <p>The email or password are incorrect</p>
-  </ion-text>
+            </div>
+            <div class="forget-register">
+              <a href="/register" class="register">Register</a>
+              <a href="#" class="forget">Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--footer-->
+    
+
+  </div>
 </ion-content>
