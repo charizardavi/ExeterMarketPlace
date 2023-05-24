@@ -10,6 +10,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header (click)="goToHome()">
+      There are no items in your cart right now, add some and they will show up here!
+    </ion-card-header>
+  </ion-card>
   <ion-card *ngFor="let item of cart">
     <ion-card-header>
       <ion-card-subtitle>Pickup: {{item.pickup}}</ion-card-subtitle>

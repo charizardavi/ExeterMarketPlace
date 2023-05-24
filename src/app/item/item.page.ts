@@ -21,6 +21,8 @@ export class ItemPage implements OnInit {
 
   public percentage!: number;
 
+  public showAddCart: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -65,6 +67,7 @@ export class ItemPage implements OnInit {
 
     const uid = (await this.auth.currentUser)?.uid;
     console.log(uid);
+    this.showAddCart = false;
     this.firestore
       .collection('users', (ref) => ref.where('uid', '==', uid))
       .get()

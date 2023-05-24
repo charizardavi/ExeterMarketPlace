@@ -89,4 +89,8 @@ export class CartPage implements OnInit {
       );
     }
   }
+
+  goToHome() {
+    this.nav.navigateForward('/home');
+  }
 }
