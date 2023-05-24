@@ -1,8 +1,11 @@
 <ion-header [translucent]="true">
   <ion-header>
     <ion-toolbar class="navbar" color="primary">
-      <ion-img style="padding-left: 200px !important;" src="assets/images/nav_logo.png" style="height: 5vh !important;"
+      <div slot="start" (click)="homeNav()">
+        <ion-img style="padding-left: 200px !important;" src="assets/images/nav_logo.png" style="height: 5vh !important;"
         slot="start"></ion-img>
+      </div>
+      
       <ion-button slot="end" shape="round" color="light" href="/list">List an Item</ion-button>
       <ion-button slot="end" shape="round" color="light" (click)="logOut()">Logout</ion-button>
     </ion-toolbar>

@@ -5,7 +5,7 @@ import { sideBarItem } from '../sidebarItem';
 import { userProfile } from '../userProfile';
 import { filter } from '../filter';
 import { item } from '../item';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 
@@ -17,6 +17,8 @@ import { Preferences } from '@capacitor/preferences';
 export class HomePage {
   buttonText: string = 'normal';
   userCart: item[] = [];
+  triggered: boolean = false;
+  needsNewInit: boolean = false;
 
   items: sideBarItem[] = [
     {
@@ -58,10 +60,21 @@ export class HomePage {
   constructor(
     public nav: NavController,
     public firestore: AngularFirestore,
-    public auth: AngularFireAuth
-  ) {}
+    public auth: AngularFireAuth,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.ngOnInit();
+        console.log("yes");
+      }
+    });
+  }
 
   async ngOnInit() {
+    this.listings = [];
+    this.triggered = true;
     const uid = (await this.auth.currentUser)?.uid!;
     if ((await this.auth.currentUser)?.uid == undefined) {
       this.nav.navigateRoot('/login');
@@ -73,19 +86,30 @@ export class HomePage {
       .subscribe((data) =>
         data.forEach((dataPiece) => {
           this.userCart = (dataPiece.data() as unknown as userProfile).cart;
-        })
-      );
-
-    this.firestore
-      .collection('items')
-      .get()
-      .subscribe((data) =>
-        data.forEach((dataPiece) => {
-          if (
-            this.userCart.indexOf(dataPiece.data() as unknown as item) == -1
-          ) {
-            this.listings.push(dataPiece.data() as unknown as item);
-          }
+          console.log(this.userCart);
+          this.firestore
+            .collection('items')
+            .get()
+            .subscribe((data) =>
+              data.forEach((dataPiece) => {
+                // if (
+                //   this.userCart.indexOf(dataPiece.data() as unknown as item) ==
+                //   -1
+                // ) {
+                //   this.listings.push(dataPiece.data() as unknown as item);
+                // }
+                let addToArray = true;
+                const incomingItem: item = dataPiece.data() as unknown as item;
+                for (let cartItem of this.userCart){
+                  if (cartItem.name == incomingItem.name){
+                    addToArray = false;
+                  }
+                }
+                if (addToArray){
+                  this.listings.push(incomingItem);
+                }
+              })
+            );
         })
       );
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { item } from '../item';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -32,16 +32,18 @@ export class ItemPage implements OnInit {
   ) {
     this.route.queryParams.subscribe((params) => {
       if (this.router.getCurrentNavigation()?.extras.state) {
-        this.data = this.router.getCurrentNavigation()?.extras
-          ?.state as unknown as item;
-          this.high_price = this.data.price+Math.ceil(Math.random()*(this.data.price/2)+1);
-          this.percentage = Math.ceil(((this.high_price-this.data.price)/this.high_price)*100);
+        this.data = this.router.getCurrentNavigation()?.extras?.state as unknown as item;
+        this.high_price = this.data.price+Math.ceil(Math.random()*(this.data.price/2)+1);
+        this.percentage = Math.ceil(((this.high_price-this.data.price)/this.high_price)*100);
+        if (this.data.fromCart){
+          this.showAddCart = false;
+        }
       }
       else{
         this.nav.navigateRoot("/home");
       }
+      
     });
-    
   }
 
   ngOnInit() {
@@ -80,7 +82,7 @@ export class ItemPage implements OnInit {
             .doc(dataPiece.id)
             .set(user)
             .then(() => {
-              this.nav.navigateRoot('/home');
+              this.homeNav();
             });
         })
       );
@@ -93,6 +95,6 @@ export class ItemPage implements OnInit {
   }
 
   homeNav(){
-    this.nav.navigateBack("/home");
+    this.nav.navigateForward('/home', { state: {hi: "yeah"} });
   }
 }

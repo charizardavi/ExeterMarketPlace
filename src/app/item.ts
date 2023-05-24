@@ -6,6 +6,7 @@ export interface item{
     price: number,
     description: string,
     image?: string,
-    pickup?: string
+    pickup?: string,
+    fromCart?: boolean
 }
 

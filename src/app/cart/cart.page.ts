@@ -90,6 +90,10 @@ export class CartPage implements OnInit {
     }
   }
   homeNav(){
-    this.nav.navigateBack("/home");
+    this.nav.navigateBack('/home', { state: {hi: "yeah"} });
+  }
+  cardClick(passItem: item) {
+    passItem.fromCart = true;
+    this.nav.navigateForward('/item', { state: passItem });
   }
 }

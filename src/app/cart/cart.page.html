@@ -1,8 +1,10 @@
 <ion-header [translucent]="true">
   <ion-header>
     <ion-toolbar class="navbar" color="primary">
-      <ion-img style="padding-left: 200px !important;" src="assets/images/nav_logo.png" style="height: 5vh !important;"
+      <div slot="start" (click)="homeNav()">
+        <ion-img style="padding-left: 200px !important;" src="assets/images/nav_logo.png" style="height: 5vh !important;"
         slot="start"></ion-img>
+      </div>
       <ion-button slot="end" shape="round" color="light" href="/list">List an Item</ion-button>
       <ion-button slot="end" shape="round" color="light" (click)="logOut()">Log Out</ion-button>
     </ion-toolbar>
@@ -10,12 +12,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-header (click)="goToHome()">
+  <ion-card *ngIf="cart.length == 0">
+    <ion-card-header (click)="homeNav()">
       There are no items in your cart right now, add some and they will show up here!
     </ion-card-header>
   </ion-card>
-  <ion-card *ngFor="let item of cart">
+  <ion-card *ngFor="let item of cart" (click)="cardClick(item)">
     <ion-card-header>
       <ion-card-subtitle>Pickup: {{item.pickup}}</ion-card-subtitle>
       <ion-card-title>{{item.name}}</ion-card-title>
