@@ -74,21 +74,21 @@ export class CartPage implements OnInit {
       );
   }
 
-  checkOut(){
-    for (let myItem of this.cart){
-      this.firestore
-      .collection('items', (ref) => ref.where('name', '==', myItem.name))
-      .get()
-      .subscribe((data) =>
-        data.forEach((dataPiece) => {          
-          this.firestore
-            .collection('users')
-            .doc(dataPiece.id)
-            .delete();
-        })
-      );
-    }
-  }
+  // checkOut(){
+  //   for (let myItem of this.cart){
+  //     this.firestore
+  //     .collection('items', (ref) => ref.where('name', '==', myItem.name))
+  //     .get()
+  //     .subscribe((data) =>
+  //       data.forEach((dataPiece) => {          
+  //         this.firestore
+  //           .collection('users')
+  //           .doc(dataPiece.id)
+  //           .delete();
+  //       })
+  //     );
+  //   }
+  // }
   homeNav(){
     this.nav.navigateBack('/home', { state: {hi: "yeah"} });
   }
@@ -96,4 +96,25 @@ export class CartPage implements OnInit {
     passItem.fromCart = true;
     this.nav.navigateForward('/item', { state: passItem });
   }
+
+  submit(){
+    for (let temp of this.cart){
+      this.firestore
+      .collection('items', (ref) => ref.where('name', '==', temp.name))
+      .get()
+      .subscribe((data) =>
+        data.forEach((dataPiece) => {
+          this.firestore
+            .collection('items')
+            .doc(dataPiece.id)
+            .delete();
+        })
+      );
+
+      this.deleteItem(temp.name!);
+      this.homeNav();
+    }
+    
+  }
+
 }

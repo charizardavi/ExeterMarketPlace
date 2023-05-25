@@ -29,4 +29,8 @@
       </ion-button>
     </ion-card-content>
   </ion-card>
+
+  <ion-button (click)="submit()" expand="block" fill="clear" shape="round" *ngIf="cart.length != 0">
+    Order
+  </ion-button>
 </ion-content>

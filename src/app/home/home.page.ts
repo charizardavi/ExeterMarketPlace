@@ -64,15 +64,15 @@ export class HomePage {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    this.route.queryParams.subscribe((params) => {
-      if (this.router.getCurrentNavigation()?.extras.state) {
-        this.ngOnInit();
-        console.log("yes");
-      }
-    });
+    // this.route.queryParams.subscribe((params) => {
+    //   if (this.router.getCurrentNavigation()?.extras.state) {
+    //     this.ngOnInit();
+    //     console.log("yes");
+    //   }
+    // });
   }
 
-  async ngOnInit() {
+  async ionViewDidEnter(){
     this.listings = [];
     this.triggered = true;
     const uid = (await this.auth.currentUser)?.uid!;
@@ -112,6 +112,10 @@ export class HomePage {
             );
         })
       );
+  }
+
+  async ngOnInit() {
+    
   }
 
   hello() {
