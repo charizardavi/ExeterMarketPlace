@@ -34,7 +34,6 @@
       <ion-text color="light">
         <h1>Welcome, {{profile.name}}</h1>
       </ion-text>
-      <ion-button (click)="goToListPage()">List an Item</ion-button>
     </ion-card-content>
   </ion-card>
   <!-- <ion-card class="my-card" [class.expanded]="expanded" (click)="toggleCard()" *ngFor="let item of listings">
@@ -44,13 +43,16 @@
     <ion-card-header class="card-header" *ngIf="expanded">{{ header }}</ion-card-header>
     <ion-card-content class="card-content" *ngIf="expanded">{{ description }}</ion-card-content>
   </ion-card> -->
-  <ion-card *ngFor="let item of listings" style="width:10%; position:relative; float: right;" (click)="goToItem(item)">
-    <ion-card-header>
-      <ion-card-title>{{item.name}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      ${{item.price}}.00
-    </ion-card-content>
-  </ion-card>
+  <div class="container_cards">
+    <ion-card *ngFor="let item of listings" style="width:15%; position:relative; float: right;" (click)="goToItem(item)">
+      <ion-card-header>
+        <ion-card-title>{{item.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        ${{item.price}}.00
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
 
 </ion-content>

@@ -40,13 +40,25 @@ export class ListPage implements OnInit {
   }
 
   async submitFuction() {
+    let isSameName:boolean = false;
+    this.firestore.collection("items").get().subscribe(
+        data => data.forEach(
+          dataPiece => {
+            if ((dataPiece.data() as unknown as item).name == this.itemName){
+              isSameName = true;
+            }
+          }
+        )
+      )
+
     if (
       this.itemName != '' &&
       this.itemDesc != '' &&
       this.itemPrice >= 0 &&
       this.itemPrice <= 2023 &&
       this.pickup_location != '' &&
-      this.imageBase64 != ""
+      this.imageBase64 != "" &&
+      !isSameName
     ) {
       const currentUser = await this.auth.currentUser;
       this.uid = currentUser!.uid;
@@ -57,7 +69,7 @@ export class ListPage implements OnInit {
           data.forEach((dataPiece) => {
             this.pushUser = dataPiece.data() as unknown as userProfile;
             this.pushItem = {
-              name: this.itemName,
+              name: this.itemName.toLowerCase(),
               description: this.itemDesc,
               price: this.itemPrice,
               user: this.pushUser,

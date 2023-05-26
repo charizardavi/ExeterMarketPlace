@@ -15,7 +15,7 @@ import { Preferences } from '@capacitor/preferences';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  buttonText: string = 'normal';
+  searchText: string = 'normal';
   userCart: item[] = [];
   triggered: boolean = false;
   needsNewInit: boolean = false;
@@ -39,7 +39,7 @@ export class HomePage {
     },
   ];
   profile: userProfile = {
-    name: 'Avaninder',
+    name: '',
     uid: '',
     cart: [],
   };
@@ -85,6 +85,7 @@ export class HomePage {
       .get()
       .subscribe((data) =>
         data.forEach((dataPiece) => {
+          this.profile = (dataPiece.data() as unknown as userProfile);
           this.userCart = (dataPiece.data() as unknown as userProfile).cart;
           console.log(this.userCart);
           this.firestore
@@ -119,10 +120,10 @@ export class HomePage {
   }
 
   hello() {
-    if (this.buttonText == 'normal') {
-      this.buttonText = 'notNormal';
+    if (this.searchText == 'normal') {
+      this.searchText = 'notNormal';
     } else {
-      this.buttonText = 'normal';
+      this.searchText = 'normal';
     }
   }
 
@@ -131,7 +132,28 @@ export class HomePage {
   }
 
   handleInput(event: any) {
-    this.buttonText = event.target.value.toLowerCase();
+    this.searchText = event.target.value.toLowerCase();
+    if (this.searchText != ""){
+      let tempArray: item[] = [];
+      for (let tempItem of this.listings){
+        if (tempItem.name?.indexOf(this.searchText) != -1){
+          tempArray.push(tempItem);
+        }
+      }
+      this.listings = tempArray;  
+    }
+    else{
+      this.ionViewDidEnter();
+    }
+    // this.firestore.collection("items", ref => ref.where('name', '==', this.searchText)).get().subscribe(
+    //   data => data.forEach(
+    //     dataPiece => {
+    //       this.listings.push((dataPiece.data() as unknown as item));
+    //     }
+    //   )
+    // );
+    
+
   }
   pinFormatter(value: number) {
     value = value * 10;
