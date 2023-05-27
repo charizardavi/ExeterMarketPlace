@@ -4,5 +4,6 @@ export interface userProfile{
     name: string,
     cart: item[],
     uid: string,
-    number?: string
+    number?: string,
+    email?: string
 }

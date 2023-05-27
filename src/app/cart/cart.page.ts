@@ -5,6 +5,7 @@ import { Preferences } from '@capacitor/preferences';
 import { NavController } from '@ionic/angular';
 import { item } from '../item';
 import { userProfile } from '../userProfile';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +19,8 @@ export class CartPage implements OnInit {
   constructor(
     public nav: NavController,
     public firestore: AngularFirestore,
-    public auth: AngularFireAuth
+    public auth: AngularFireAuth,
+    public httpClient: HttpClient
   ) {}
 
   async ngOnInit() {
@@ -103,11 +105,15 @@ export class CartPage implements OnInit {
       .collection('items', (ref) => ref.where('name', '==', temp.name))
       .get()
       .subscribe((data) =>
-        data.forEach((dataPiece) => {
+        data.forEach(async (dataPiece) => {
+          let tempItem: item = dataPiece.data() as unknown as item;
+          const msg = fetch('https://exetermarketplace.avaninderbhagh1.repl.co/?name='+tempItem.user.name+'&item_name='+tempItem.name+'&email='+(await this.auth.currentUser)?.email+'&sendemail='+tempItem.user.email);
+          
           this.firestore
             .collection('items')
             .doc(dataPiece.id)
             .delete();
+          
         })
       );
 

@@ -50,7 +50,8 @@ export class RegisterPage implements OnInit {
             this.newUser = {
               uid: uidInput!,
               name: this.firstNameValue+" "+this.lastNameValue,
-              cart: []
+              cart: [],
+              email: this.emailValue
             };
 
             await this.firestore.collection("users").add(this.newUser);
