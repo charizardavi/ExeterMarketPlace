@@ -6,7 +6,7 @@ import { userProfile } from '../userProfile';
 import { filter } from '../filter';
 import { item } from '../item';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, RangeCustomEvent } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 
 @Component({
@@ -19,7 +19,8 @@ export class HomePage {
   userCart: item[] = [];
   triggered: boolean = false;
   needsNewInit: boolean = false;
-
+  priceCap: number = 500;
+  totalListings: item[] = [];
   items: sideBarItem[] = [
     {
       name: 'dorm',
@@ -48,11 +49,7 @@ export class HomePage {
     {
       name: 'price range',
       slider: true,
-    },
-    {
-      name: 'hello there',
-      slider: true,
-    },
+    }
   ];
 
   listings: item[] = [];
@@ -113,6 +110,7 @@ export class HomePage {
             );
         })
       );
+      this.totalListings = this.listings;
   }
 
   async ngOnInit() {
@@ -135,16 +133,18 @@ export class HomePage {
     this.searchText = event.target.value.toLowerCase();
     if (this.searchText != ""){
       let tempArray: item[] = [];
-      for (let tempItem of this.listings){
+      for (let tempItem of this.totalListings){
         if (tempItem.name?.indexOf(this.searchText) != -1){
           tempArray.push(tempItem);
         }
       }
-      this.listings = tempArray;  
+      this.listings = tempArray;
+      this.totalListings = this.listings;
     }
     else{
       this.ionViewDidEnter();
     }
+    
     // this.firestore.collection("items", ref => ref.where('name', '==', this.searchText)).get().subscribe(
     //   data => data.forEach(
     //     dataPiece => {
@@ -152,13 +152,28 @@ export class HomePage {
     //     }
     //   )
     // );
-    
+  }
+
+  priceFilter(){
 
   }
+
   pinFormatter(value: number) {
-    value = value * 10;
     return `$${value}`;
   }
+
+  onIonChange(ev: Event) {
+    this.priceCap = (ev as RangeCustomEvent).detail.value.valueOf() as unknown as number;
+    this.listings = [];
+    for (let itemElement of this.totalListings){
+      if (itemElement.price <= this.priceCap){
+        this.listings.push(itemElement);
+      }
+    }
+  }
+
+
+
   public expanded = false;
   public header = 'My Card Header';
   public description = 'My Card Description';

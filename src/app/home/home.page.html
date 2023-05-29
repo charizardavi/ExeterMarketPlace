@@ -18,15 +18,15 @@
 
 <ion-content [fullscreen]="true">
   <div class="sidebar">
-    <ion-icon slot="start" *ngFor="let item of items" [name]="item.icon" style="width: 100%; padding-top: 20%;"
-      size="large" (click)="hello()"></ion-icon>
+     <!-- <ion-icon slot="start" *ngFor="let item of items" [name]="item.icon" style="width: 100%; padding-top: 20%;"
+      size="large" (click)="hello()"></ion-icon> -->
     <ion-text color="light">
       <h1>Filters</h1>
     </ion-text>
     <div *ngFor="let filter of filters">
       <ion-label color="light">{{filter.name}}</ion-label>
       <ion-range color="light" [pinFormatter]="pinFormatter" [pin]="true" aria-label="price" *ngIf="filter.slider"
-        style="padding-left: 10%; padding-right: 10%;"></ion-range>
+        style="padding-left: 10%; padding-right: 10%;" [value]="2023" [min]="0" [max]="2023" (ionChange)="onIonChange($event)"></ion-range>
     </div>
   </div>
   <ion-card class="profile">

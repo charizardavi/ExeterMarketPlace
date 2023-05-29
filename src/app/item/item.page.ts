@@ -62,10 +62,7 @@ export class ItemPage implements OnInit {
   }
 
   async addToCart() {
-    // this.firestore.collection("items").add();
-    // console.log(this.firestore.collection("items").get());
     console.log('click');
-    let pushUser: userProfile;
 
     const uid = (await this.auth.currentUser)?.uid;
     console.log(uid);
@@ -83,6 +80,30 @@ export class ItemPage implements OnInit {
             .set(user)
             .then(() => {
               this.homeNav();
+            });
+        })
+      );
+  }
+
+  async checkOut(){
+    console.log('click');
+
+    const uid = (await this.auth.currentUser)?.uid;
+    console.log(uid);
+    this.showAddCart = false;
+    this.firestore
+      .collection('users', (ref) => ref.where('uid', '==', uid))
+      .get()
+      .subscribe((data) =>
+        data.forEach((dataPiece) => {
+          let user: userProfile = dataPiece.data() as unknown as userProfile;
+          user.cart.push(this.data);
+          this.firestore
+            .collection('users')
+            .doc(dataPiece.id)
+            .set(user)
+            .then(() => {
+              this.nav.navigateForward("/cart");
             });
         })
       );
